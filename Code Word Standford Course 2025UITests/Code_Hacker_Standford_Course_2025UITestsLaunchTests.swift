@@ -1,13 +1,13 @@
 //
-//  Code_Hacker_Standford_Course_2025UITestsLaunchTests.swift
-//  Code Hacker Standford Course 2025UITests
+//  Code_Word_Standford_Course_2025UITestsLaunchTests.swift
+//  Code Word Standford Course 2025UITests
 //
 //  Created by visortix on 12.12.2025.
 //
 
 import XCTest
 
-final class Code_Hacker_Standford_Course_2025UITestsLaunchTests: XCTestCase {
+final class Code_Word_Standford_Course_2025UITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

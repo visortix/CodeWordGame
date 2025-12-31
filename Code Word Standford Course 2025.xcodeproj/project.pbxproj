@@ -24,25 +24,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D6CF66592EEC3D400063F4B4 /* Code Hacker Standford Course 2025.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Code Hacker Standford Course 2025.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6CF666B2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Code Hacker Standford Course 2025Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6CF66752EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Code Hacker Standford Course 2025UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6CF66592EEC3D400063F4B4 /* Code Word Standford Course 2025.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Code Word Standford Course 2025.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6CF666B2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Code Word Standford Course 2025Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6CF66752EEC3D420063F4B4 /* Code Word Standford Course 2025UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Code Word Standford Course 2025UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D6CF665B2EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */ = {
+		D6CF665B2EEC3D400063F4B4 /* Code Word Standford Course 2025 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Code Hacker Standford Course 2025";
+			path = "Code Word Standford Course 2025";
 			sourceTree = "<group>";
 		};
-		D6CF666E2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests */ = {
+		D6CF666E2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Code Hacker Standford Course 2025Tests";
+			path = "Code Word Standford Course 2025Tests";
 			sourceTree = "<group>";
 		};
-		D6CF66782EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests */ = {
+		D6CF66782EEC3D420063F4B4 /* Code Word Standford Course 2025UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Code Hacker Standford Course 2025UITests";
+			path = "Code Word Standford Course 2025UITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		D6CF66502EEC3D400063F4B4 = {
 			isa = PBXGroup;
 			children = (
-				D6CF665B2EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */,
-				D6CF666E2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests */,
-				D6CF66782EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests */,
+				D6CF665B2EEC3D400063F4B4 /* Code Word Standford Course 2025 */,
+				D6CF666E2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests */,
+				D6CF66782EEC3D420063F4B4 /* Code Word Standford Course 2025UITests */,
 				D6CF665A2EEC3D400063F4B4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		D6CF665A2EEC3D400063F4B4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D6CF66592EEC3D400063F4B4 /* Code Hacker Standford Course 2025.app */,
-				D6CF666B2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests.xctest */,
-				D6CF66752EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests.xctest */,
+				D6CF66592EEC3D400063F4B4 /* Code Word Standford Course 2025.app */,
+				D6CF666B2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests.xctest */,
+				D6CF66752EEC3D420063F4B4 /* Code Word Standford Course 2025UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D6CF66582EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */ = {
+		D6CF66582EEC3D400063F4B4 /* Code Word Standford Course 2025 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D6CF667F2EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Hacker Standford Course 2025" */;
+			buildConfigurationList = D6CF667F2EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Word Standford Course 2025" */;
 			buildPhases = (
 				D6CF66552EEC3D400063F4B4 /* Sources */,
 				D6CF66562EEC3D400063F4B4 /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D6CF665B2EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */,
+				D6CF665B2EEC3D400063F4B4 /* Code Word Standford Course 2025 */,
 			);
-			name = "Code Hacker Standford Course 2025";
+			name = "Code Word Standford Course 2025";
 			packageProductDependencies = (
 			);
 			productName = "Code Hacker Standford Course 2025";
-			productReference = D6CF66592EEC3D400063F4B4 /* Code Hacker Standford Course 2025.app */;
+			productReference = D6CF66592EEC3D400063F4B4 /* Code Word Standford Course 2025.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D6CF666A2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests */ = {
+		D6CF666A2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D6CF66822EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Hacker Standford Course 2025Tests" */;
+			buildConfigurationList = D6CF66822EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Word Standford Course 2025Tests" */;
 			buildPhases = (
 				D6CF66672EEC3D420063F4B4 /* Sources */,
 				D6CF66682EEC3D420063F4B4 /* Frameworks */,
@@ -131,18 +131,18 @@
 				D6CF666D2EEC3D420063F4B4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D6CF666E2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests */,
+				D6CF666E2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests */,
 			);
-			name = "Code Hacker Standford Course 2025Tests";
+			name = "Code Word Standford Course 2025Tests";
 			packageProductDependencies = (
 			);
 			productName = "Code Hacker Standford Course 2025Tests";
-			productReference = D6CF666B2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests.xctest */;
+			productReference = D6CF666B2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		D6CF66742EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests */ = {
+		D6CF66742EEC3D420063F4B4 /* Code Word Standford Course 2025UITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D6CF66852EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Hacker Standford Course 2025UITests" */;
+			buildConfigurationList = D6CF66852EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Word Standford Course 2025UITests" */;
 			buildPhases = (
 				D6CF66712EEC3D420063F4B4 /* Sources */,
 				D6CF66722EEC3D420063F4B4 /* Frameworks */,
@@ -154,13 +154,13 @@
 				D6CF66772EEC3D420063F4B4 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				D6CF66782EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests */,
+				D6CF66782EEC3D420063F4B4 /* Code Word Standford Course 2025UITests */,
 			);
-			name = "Code Hacker Standford Course 2025UITests";
+			name = "Code Word Standford Course 2025UITests";
 			packageProductDependencies = (
 			);
 			productName = "Code Hacker Standford Course 2025UITests";
-			productReference = D6CF66752EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests.xctest */;
+			productReference = D6CF66752EEC3D420063F4B4 /* Code Word Standford Course 2025UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D6CF66542EEC3D400063F4B4 /* Build configuration list for PBXProject "Code Hacker Standford Course 2025" */;
+			buildConfigurationList = D6CF66542EEC3D400063F4B4 /* Build configuration list for PBXProject "Code Word Standford Course 2025" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D6CF66582EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */,
-				D6CF666A2EEC3D420063F4B4 /* Code Hacker Standford Course 2025Tests */,
-				D6CF66742EEC3D420063F4B4 /* Code Hacker Standford Course 2025UITests */,
+				D6CF66582EEC3D400063F4B4 /* Code Word Standford Course 2025 */,
+				D6CF666A2EEC3D420063F4B4 /* Code Word Standford Course 2025Tests */,
+				D6CF66742EEC3D420063F4B4 /* Code Word Standford Course 2025UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		D6CF666D2EEC3D420063F4B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D6CF66582EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */;
+			target = D6CF66582EEC3D400063F4B4 /* Code Word Standford Course 2025 */;
 			targetProxy = D6CF666C2EEC3D420063F4B4 /* PBXContainerItemProxy */;
 		};
 		D6CF66772EEC3D420063F4B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D6CF66582EEC3D400063F4B4 /* Code Hacker Standford Course 2025 */;
+			target = D6CF66582EEC3D400063F4B4 /* Code Word Standford Course 2025 */;
 			targetProxy = D6CF66762EEC3D420063F4B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -494,7 +494,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Code Hacker Standford Course 2025.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Code Hacker Standford Course 2025";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Code Word Standford Course 2025.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Code Word Standford Course 2025";
 				XROS_DEPLOYMENT_TARGET = 26.1;
 			};
 			name = Debug;
@@ -520,7 +520,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Code Hacker Standford Course 2025.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Code Hacker Standford Course 2025";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Code Word Standford Course 2025.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Code Word Standford Course 2025";
 				XROS_DEPLOYMENT_TARGET = 26.1;
 			};
 			name = Release;
@@ -578,7 +578,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D6CF66542EEC3D400063F4B4 /* Build configuration list for PBXProject "Code Hacker Standford Course 2025" */ = {
+		D6CF66542EEC3D400063F4B4 /* Build configuration list for PBXProject "Code Word Standford Course 2025" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D6CF667D2EEC3D420063F4B4 /* Debug */,
@@ -587,7 +587,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D6CF667F2EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Hacker Standford Course 2025" */ = {
+		D6CF667F2EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Word Standford Course 2025" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D6CF66802EEC3D420063F4B4 /* Debug */,
@@ -596,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D6CF66822EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Hacker Standford Course 2025Tests" */ = {
+		D6CF66822EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Word Standford Course 2025Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D6CF66832EEC3D420063F4B4 /* Debug */,
@@ -605,7 +605,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D6CF66852EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Hacker Standford Course 2025UITests" */ = {
+		D6CF66852EEC3D420063F4B4 /* Build configuration list for PBXNativeTarget "Code Word Standford Course 2025UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D6CF66862EEC3D420063F4B4 /* Debug */,

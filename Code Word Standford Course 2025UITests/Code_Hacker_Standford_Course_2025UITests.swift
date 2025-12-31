@@ -1,13 +1,13 @@
 //
-//  Code_Hacker_Standford_Course_2025UITests.swift
-//  Code Hacker Standford Course 2025UITests
+//  Code_Word_Standford_Course_2025UITests.swift
+//  Code Word Standford Course 2025
 //
 //  Created by visortix on 12.12.2025.
 //
 
 import XCTest
 
-final class Code_Hacker_Standford_Course_2025UITests: XCTestCase {
+final class Code_Word_Standford_Course_2025UITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
