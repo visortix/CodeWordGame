@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct CodeWord {
+@Observable
+class CodeWord {
     var masterCode: Code {
         didSet {
             self.guess = Code(kind: .guess, count: self.count)
@@ -17,7 +18,9 @@ struct CodeWord {
     var attempts: [Code] = []
     let choices: [Letter]
     var slotLetterStatuses = [Int: [Letter: Match]]()
-    @State private var checker = UITextChecker()
+    private var checker = UITextChecker()
+    var startDate = Date.now
+    var lastAttemptDate: Date?
     
     init() {
         self.masterCode = Code(kind: .master, count: 4)
@@ -44,7 +47,7 @@ struct CodeWord {
         masterCode.letters.count
     }
     
-    mutating func makeAttempt() {
+    func makeAttempt() {
         let guessString = guess.letters.joined().lowercased()
         guard guessString.count == count else { return }
         guard checker.isAWord(guessString) else { return }
@@ -65,11 +68,26 @@ struct CodeWord {
         if isGameOver {
             guess.letters.clear()
         }
+        
+        lastAttemptDate = .now
     }
     
-    mutating func restart() {
-        self = CodeWord()
+    func restart() {
+        let newGame = CodeWord()
+        
+        self.masterCode = newGame.masterCode
+        self.guess = newGame.guess
+        self.attempts = newGame.attempts
+        self.slotLetterStatuses = newGame.slotLetterStatuses
     }
 }
 
-
+extension CodeWord: Identifiable, Hashable, Equatable {
+    static func == (lhs: CodeWord, rhs: CodeWord) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

@@ -1,4 +1,4 @@
-//
+C//
 //  ControlPanel.swift
 //  Code Word Standford Course 2025
 //
@@ -36,6 +36,8 @@ struct ControlPanel: View {
             } label: {
                 Text("🔴")
             }
+            .contrast(0)
+            .disabled(true)
             Spacer()
             if !isGameOver {
                 Button {

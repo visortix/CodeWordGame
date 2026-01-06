@@ -15,7 +15,7 @@ struct KeyView: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: Key.cornerRadius)
-            .aspectRatio(2/2.8, contentMode: .fit)
+            .aspectRatio(Key.aspectRatio, contentMode: .fit)
             .foregroundStyle(Color(.systemGray6))
             .shadow(radius: Key.shadowRadius)
             .overlay {
@@ -26,8 +26,7 @@ struct KeyView: View {
     }
     
     struct Key {
-        static let width: CGFloat = 30
-        static let height: CGFloat = 40
+        static let aspectRatio: CGFloat = 2/2.8
         static let cornerRadius: CGFloat = 10
         static let shadowRadius: CGFloat = 1
     }

@@ -9,11 +9,13 @@ import SwiftUI
 import GameKit
 
 struct CodeWordView: View {
+    // MARK: Data Shared with Me
+    let codeWord: CodeWord
+
     // MARK: Data In
     @Environment(\.words) var words
     
     // MARK: Data Owned by Me
-    @State private var codeWord = CodeWord()
     @State private var selection = 0
     @State private var restarting = false
     
@@ -24,7 +26,7 @@ struct CodeWordView: View {
             Group {
                 if !restarting {
                     CodeView(code: codeWord.masterCode)
-                        .blur(radius: codeWord.isGameOver ? 0 : 10)
+//                        .blur(radius: MasterCode.blurRadius(isOver: codeWord.isGameOver))
                         .transition(.opacityBlur)
                 } else {
                     CodeView(code: Code(kind: .master, count: codeWord.count))
@@ -101,9 +103,16 @@ struct CodeWordView: View {
         codeWord.makeAttempt()
         selection = 0
     }
+    
+    struct MasterCode {
+        static func blurRadius(isOver: Bool) -> CGFloat {
+            isOver ? 0 : 10
+        }
+    }
 }
 
 
 #Preview {
-    CodeWordView()
+    @Previewable @State var codeWord = CodeWord()
+    CodeWordView(codeWord: codeWord)
 }

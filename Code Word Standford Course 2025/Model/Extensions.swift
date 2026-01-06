@@ -1,5 +1,5 @@
 //
-//  Exyensions.swift
+//  Extensions.swift
 //  Code Word Standford Course 2025
 //
 //  Created by visortix on 29.12.2025.

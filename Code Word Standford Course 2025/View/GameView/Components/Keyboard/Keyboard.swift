@@ -30,7 +30,7 @@ struct Keyboard: View {
                 keys(from: 19, to: 26)
             }
         }
-        .aspectRatio(2.5, contentMode: .fit)
+        .aspectRatio(KeyboardLimit.aspectRatio, contentMode: .fit)
     }
     
     func keys(from number1: Int, to number2: Int) -> some View {
@@ -69,6 +69,9 @@ struct Keyboard: View {
         }
     }
     
+    struct KeyboardLimit {
+        static let aspectRatio: CGFloat = 2.6
+    }
     struct KeyLine {
         static let spacingVertical: CGFloat = 10
         static let spacingHorizontal: CGFloat = 8

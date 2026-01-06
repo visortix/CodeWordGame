@@ -13,7 +13,7 @@ struct Code_Word_Standford_Course_2025App: App {
 
     var body: some Scene {
         WindowGroup {
-            CodeWordView()
+            GameCenter()
         }
     }
 }
