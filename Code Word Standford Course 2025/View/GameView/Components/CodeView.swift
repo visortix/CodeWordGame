@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CodeView: View {
     // MARK: Data In
+    @Environment(\.settings) var settings
     let code: Code
     
     // MARK: Data Shared with Me
@@ -27,16 +28,13 @@ struct CodeView: View {
     var body: some View {
         HStack {
             ForEach(code.letters.indices, id: \.self) { index in
-                Circle()
-                    .stroke(style: StrokeStyle(lineWidth: 4))
-                    .scaleEffect(0.9)
-                    .contentShape(Circle())
+                settings.getStrokedShape(lineWidth: GuessLine.matchOutlineLineWidth)
+                    .scaleEffect(GuessLine.sectionScale)
                     .foregroundStyle(code.matches?[index].color ?? .clear)
-                    .background { /// - Code Matches and Selection Dot
-                        if (code.kind == .guess) ||
-                            (code.matches?[index] == .nomatch) {
-                            Circle().stroke(Color.gray(0.9))
-                        }
+                    .contentShape(Circle())
+                    .background {   /// - Guess and .nomatch Outline
+                                    /// - Guess Selection Dot
+                        guessNomatchOutline(index: index)
                         selectionDot(index: index)
                     }
                     .overlay { /// - Word
@@ -48,8 +46,18 @@ struct CodeView: View {
                             selection = index
                         }
                     }
-                    .transition(AnyTransition.opacityBlur)
+                    .transition(AnyTransition.opacityBlur())
             }
+        }
+    }
+    
+    @ViewBuilder
+    func guessNomatchOutline(index: Int) -> some View {
+        if  (code.kind == .guess) ||
+            (code.matches?[index] == .nomatch) {
+            settings.getStrokedShape(lineWidth: GuessLine.guessNomatchOutlineLineWidth)
+                .scaleEffect(GuessLine.sectionScale)
+                .foregroundStyle(GuessLine.guessNomatchOutlineColor)
         }
     }
     
@@ -73,8 +81,12 @@ struct CodeView: View {
         static let padding = EdgeInsets(top: 0, leading: 0, bottom: bottomPadding, trailing: 0)
         static let selectionDotScale: CGFloat = 0.13
         static func selectionDotOffset(forHeight height: CGFloat) -> CGFloat {
-            height * 4.7
-        }
+            height * 4.7 }
+        static let rectangleCornerRoundness: CGFloat = 0.2
+        static let sectionScale: CGFloat = 0.9
+        static let guessNomatchOutlineLineWidth: CGFloat = 1
+        static let guessNomatchOutlineColor = Color.gray(0.9)
+        static let matchOutlineLineWidth: CGFloat = 4
     }
 }
 

@@ -29,6 +29,10 @@ struct Code {
         }
     }
     
+    var isEmpty: Bool {
+        letters.allSatisfy({$0 == .missing})
+    }
+    
     func match(against otherCode: Code) -> [Match] {
         var pegsToMatch = otherCode.letters
         var result = [Match](repeating: .nomatch, count: letters.count)

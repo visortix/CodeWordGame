@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct GameOverview: View {
-    let game:CodeWord
+    let game: CodeWord
     
     var body: some View {
         VStack(alignment: .leading) {
             CodeView(code: game.attempts.last ?? game.guess)
                 .frame(maxHeight: 40)
                 .allowsHitTesting(false)
-            Text("Number of attempts: \(game.attempts.count)")
+            HStack {
+                Text("Number of attempts: \(game.attempts.count)")
+                Spacer()
+                ElapsedTime(startTime: game.startTime, endTime: game.endTime, elapsedTime: game.elapsedTime)
+                    .monospacedDigit()
+                    .fixedSize()
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ struct CodeWordView: View {
 
     // MARK: Data In
     @Environment(\.words) var words
+    @Environment(\.settings) var settings
+    @Environment(\.scenePhase) var scenePhase
     
     // MARK: Data Owned by Me
     @State private var selection = 0
@@ -27,7 +29,7 @@ struct CodeWordView: View {
                 if !restarting {
                     CodeView(code: codeWord.masterCode)
 //                        .blur(radius: MasterCode.blurRadius(isOver: codeWord.isGameOver))
-                        .transition(.opacityBlur)
+                        .transition(.opacityBlur())
                 } else {
                     CodeView(code: Code(kind: .master, count: codeWord.count))
                 }
@@ -65,7 +67,29 @@ struct CodeWordView: View {
                 .transition(.keyboard)
             }
         }
-        .padding()
+        .onAppear {
+            codeWord.startTimer()
+        }
+        .onDisappear {
+            codeWord.pauseTimer()
+        }
+        .onChange(of: codeWord) { oldGame, newGame in
+            oldGame.pauseTimer()
+            newGame.startTimer()
+        }
+        .onChange(of: scenePhase) {
+            switch scenePhase {
+            case .active: codeWord.startTimer()
+            case .background: codeWord.pauseTimer()
+            default: break
+            }
+        }
+        .onChange(of: codeWord) { _, newGame in
+            if !newGame.isGameOver, newGame.masterCode.isEmpty {
+                fillGameCode()
+            }
+            selection = 0
+        }
         .onChange(of: words.count, initial: true) {
             if codeWord.attempts.isEmpty {
                 if words.count == 0 {
@@ -75,13 +99,22 @@ struct CodeWordView: View {
                 }
             }
         }
+        .trackElapsedTime(in: codeWord)
+        .toolbar {
+            ToolbarItem {
+                ElapsedTime(startTime: codeWord.startTime, endTime: codeWord.endTime, elapsedTime: codeWord.elapsedTime)
+                    .monospacedDigit()
+                    .fixedSize()
+            }
+        }
+        .padding()
     }
     
     // MARK: - Logic Functions
     
     func fillGameCode() {
-        let randomCount = 3 + GKRandomSource.sharedRandom().nextInt(upperBound: (3 + 1))
-        codeWord.masterCode.letters = (words.random(length: randomCount) ?? "ERROR").map { String($0) }
+        let length = codeWord.customLenght ?? settings.wordLength
+        codeWord.masterCode.letters = (words.random(length: length) ?? "ERROR").map { String($0) }
     }
     
     func restart() {
@@ -111,6 +144,36 @@ struct CodeWordView: View {
     }
 }
 
+extension View {
+    func trackElapsedTime(in game: CodeWord) -> some View {
+        self.modifier(ElapsedTimeTracker(game: game))
+    }
+}
+
+struct ElapsedTimeTracker: ViewModifier {
+    @Environment(\.scenePhase) var scenePhase
+    let game: CodeWord
+    
+    func body(content: Content) -> some View {
+        content.onAppear {
+            game.startTimer()
+        }
+        .onDisappear {
+            game.pauseTimer()
+        }
+        .onChange(of: game) { oldGame, newGame in
+            oldGame.pauseTimer()
+            newGame.startTimer()
+        }
+        .onChange(of: scenePhase) {
+            switch scenePhase {
+            case .active: game.startTimer()
+            case .background: game.pauseTimer()
+            default: break
+            }
+        }
+    }
+}
 
 #Preview {
     @Previewable @State var codeWord = CodeWord()

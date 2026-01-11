@@ -1,4 +1,4 @@
-C//
+//
 //  ControlPanel.swift
 //  Code Word Standford Course 2025
 //
@@ -58,9 +58,6 @@ struct ControlPanel: View {
                 .transition(.guessButton)
             }
         }
-//        .transaction { transaction in
-//            transaction.animation = transaction.animation?.delay(3)
-//        }
         .font(.title)
     }
 }
