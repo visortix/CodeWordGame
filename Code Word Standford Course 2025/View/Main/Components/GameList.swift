@@ -6,32 +6,68 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GameList: View {
     // MARK: Data In
     @Environment(\.words) var words
-    @Environment(\.settings) var settings
-    
-    // MARK: Data Owned by Me
-    @State private var games: [CodeWord] = []
+    @Environment(\.modelContext) var modelContext
 
     // MARK: Data Shared with Me
     @Binding var selection: CodeWord?
     @Binding var showSettings: Bool
+    @Query private var games: [CodeWord]
+    @Query private var settings: [Settings]
     
+    // MARK: Data Owned by Me
+    private var currentSettings: Settings {
+        if let existing = settings.first {
+            return existing
+        } else {
+            return Settings()
+        }
+    }
+    
+    // MARK: - Init
+    
+    init(guessesContain search: String, filterOption: FilterOption, selection: Binding<CodeWord?>, showSettings: Binding<Bool>) {
+        self._selection = selection
+        self._showSettings = showSettings
+        
+        // Search text
+        let lowercaseSearch = search.lowercased()
+        
+        // Filters
+        let showAll = filterOption == .all
+        let showActive = filterOption == .active
+        let showCompleted = filterOption == .completed
+        
+        // Filter predicate
+        let predicate = #Predicate<CodeWord> { game in
+            (showAll || (showActive && !game.isGameOver) || (showCompleted && game.isGameOver)) &&
+            (search.isEmpty || game._attempts.contains(where: { $0.word.contains(lowercaseSearch) }))
+        }
+        
+        // Sort
+        let sort: [SortDescriptor<CodeWord>] = [
+            .init(\.lastAttemptDate, order: .reverse),
+            .init(\.initDate, order: .reverse)
+        ]
+        
+        self._games = Query(
+            filter: predicate,
+            sort: sort
+        )
+    }
+
     // MARK: - Body
     
     var body: some View {
         List(selection: $selection) {
             gamesSection
         }
-        .onChange(of: games) {
-            withAnimation(.bouncy(duration: 10)) {
-                sortGames()
-            }
-        }
         .toolbar {
-            ToolbarItem(placement: .automatic) {
+            ToolbarItem(placement: .automatic) { /// - Adds new game button
                 newGameButton
                     .contextMenu {
                         Button("3 letters") {
@@ -48,16 +84,12 @@ struct GameList: View {
                         }
                     }
             }
-            ToolbarItem(placement: .automatic) {
+            ToolbarItem(placement: .automatic) { /// - Adds settings button
                 settingsButton
             }
         }
-        .onChange(of: words.count) {
-            if words.count != 0 {
-                addGame(CodeWord(length: settings.wordLength))
-                addGameWithAttempts()
-                addGameFinished()
-            }
+        .onChange(of: words.count) { /// - Adds some games if there are none.
+            addSampleGames()
         }
     }
     
@@ -71,7 +103,9 @@ struct GameList: View {
                 }
             }
             .onDelete { offsets in
-                games.remove(atOffsets: offsets)
+                for offset in offsets {
+                    modelContext.delete(games[offset])
+                }
             }
         }
     }
@@ -91,31 +125,42 @@ struct GameList: View {
     }
     
     // MARK: - Logic
+    /// - Pre-Loading
     
-    // MARK: - Pre-Loading
+    /// Retrieves games and adds some if there are none.
+    func addSampleGames() {
+        let fetchDescriptor = FetchDescriptor<CodeWord>()
+        let results = try? modelContext.fetch(fetchDescriptor)
+        
+        if (words.count != 0), (results?.count == 0) {
+            addGame(CodeWord(length: currentSettings.wordLength))
+            addGameWithAttempts()
+            addGameFinished()
+        }
+    }
     
     func addGameFinished(){
         let game = CodeWord()
         setMasterCode(in: game)
         makeAttempt(with: game.masterCode.letters, in: game)
-        games.insert(game, at: 0)
+        addGame(game)
     }
     
     func addGameWithAttempts(){
         let game = CodeWord()
         setMasterCode(in: game)
         fillAttempts(in: game)
-        games.insert(game, at: 0)
+        addGame(game)
     }
     
     func setMasterCode(in game: CodeWord) {
-        let masterWord = words.random(length: settings.wordLength) ?? "ERROR"
+        let masterWord = words.random(length: currentSettings.wordLength) ?? "ERROR"
         game.masterCode.letters = masterWord.map { String($0) }
     }
     
     func fillAttempts(in game: CodeWord) {
         for _ in 0..<(Int.random(in: 2...4)) {
-            let word = words.random(length: settings.wordLength) ?? "ERROR"
+            let word = words.random(length: currentSettings.wordLength) ?? "ERROR"
             
             makeAttempt(with: word.map { String($0) }, in: game)
         }
@@ -129,22 +174,30 @@ struct GameList: View {
     // MARK: - Game Array Operations
     
     func addGame(_ game: CodeWord) {
-        games.insert(game, at: 0)
+        modelContext.insert(game)
     }
     
     func addAndShowGame(length: Int? = nil) {
         let game = if let length {
             CodeWord(length: length)
         } else {
-            CodeWord(length: settings.wordLength)
+            CodeWord(length: currentSettings.wordLength)
         }
         addGame(game)
         selection = game
     }
     
-    func sortGames(){
-        games = games.sorted {
-            $0.lastAttemptDate ?? $0.initDate > $1.lastAttemptDate ?? $1.initDate
+    enum FilterOption: CaseIterable {
+        case all
+        case active
+        case completed
+        
+        var title: String {
+            switch self {
+            case .all: "All"
+            case .active: "Active"
+            case .completed: "Completed"
+            }
         }
     }
 }

@@ -6,20 +6,23 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Code {
-    var kind: Kind
+@Model
+class Code {
+    var _kind: String = Kind.unknown.description
     var letters: [Letter]
+    var word = ""
+    var timestamp = Date.now
     
-    init(kind: Kind, count: Int) {
-        self.kind = kind
-        self.letters = Array(repeating: Letter.missing, count: count)
+    var kind: Kind {
+        get { Kind(_kind) }
+        set { _kind = newValue.description }
     }
     
-    enum Kind: Equatable {
-        case master
-        case guess
-        case attempt([Match])
+    init(kind: Kind, count: Int) {
+        self.letters = Array(repeating: Letter.missing, count: count)
+        self.kind = kind
     }
     
     var matches: [Match]? {

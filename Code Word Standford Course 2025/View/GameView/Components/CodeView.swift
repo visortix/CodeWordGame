@@ -6,17 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CodeView: View {
     // MARK: Data In
-    @Environment(\.settings) var settings
     let code: Code
     
     // MARK: Data Shared with Me
     @Binding var selection: Int
+    @Query private var settings: [Settings]
     
     // MARK: Data Owned by Me
     @Namespace private var selectionDotNamespace
+    private var currentSettings: Settings {
+        if let existing = settings.first {
+            return existing
+        } else {
+            return Settings()
+        }
+    }
+    
+    // MARK: - Init
     
     init(code: Code, selection: Binding<Int> = .constant(-1)) {
         self.code = code
@@ -28,7 +38,7 @@ struct CodeView: View {
     var body: some View {
         HStack {
             ForEach(code.letters.indices, id: \.self) { index in
-                settings.getStrokedShape(lineWidth: GuessLine.matchOutlineLineWidth)
+                currentSettings.guessShape.getStrokedShape(lineWidth: GuessLine.matchOutlineLineWidth)
                     .scaleEffect(GuessLine.sectionScale)
                     .foregroundStyle(code.matches?[index].color ?? .clear)
                     .contentShape(Circle())
@@ -51,11 +61,13 @@ struct CodeView: View {
         }
     }
     
+    // MARK: - UI
+    
     @ViewBuilder
     func guessNomatchOutline(index: Int) -> some View {
         if  (code.kind == .guess) ||
             (code.matches?[index] == .nomatch) {
-            settings.getStrokedShape(lineWidth: GuessLine.guessNomatchOutlineLineWidth)
+            currentSettings.guessShape.getStrokedShape(lineWidth: GuessLine.guessNomatchOutlineLineWidth)
                 .scaleEffect(GuessLine.sectionScale)
                 .foregroundStyle(GuessLine.guessNomatchOutlineColor)
         }
@@ -75,6 +87,8 @@ struct CodeView: View {
         }
         .animation(.selection, value: selection)
     }
+    
+    // MARK: - Types
     
     struct GuessLine {
         static let bottomPadding: CGFloat = 25

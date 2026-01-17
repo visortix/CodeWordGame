@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Match {
+enum Match: String, Codable {
     case nomatch
     case exact
     case inexact

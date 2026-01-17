@@ -6,13 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
-    @Environment(\.settings) var settings
+    // MARK: Data In
+    @Environment(\.modelContext) var modelContext
+
+    // MARK: Data Shared with Me
+    @Query private var settings: [Settings]
     @Environment(\.dismiss) var dismiss
         
+    // MARK: Data Owned by Me
+    private var currentSettings: Settings {
+        if let existing = settings.first {
+            return existing
+        } else {
+            return Settings()
+        }
+    }
+    
     var body: some View {
-        @Bindable var bindableSettings = settings
+        @Bindable var bindableSettings = currentSettings
         
         NavigationStack {
             Form {
@@ -42,13 +56,17 @@ struct SettingsView: View {
             }
         }
         .onDisappear {
-            settings.save()
+            do {
+                try modelContext.save()
+            } catch {
+                print("Error: \(error.localizedDescription)")
+            }
         }
     }
 }
 
 
 
-#Preview {
+#Preview(traits: .swiftData) {
     SettingsView()
 }

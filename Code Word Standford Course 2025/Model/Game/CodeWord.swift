@@ -6,28 +6,51 @@
 //
 
 import SwiftUI
+import SwiftData
 
-@Observable
+@Model
 class CodeWord {
-    var masterCode: Code {
+    
+    // MARK: Codes
+    @Relationship(deleteRule: .cascade) var masterCode: Code {
         didSet {
             self.guess = Code(kind: .guess, count: self.count)
         }
     }
-    var guess: Code
-    var attempts: [Code] = []
-    let choices: [Letter]
-    var slotLetterStatuses = [Int: [Letter: Match]]()
-    private var checker = UITextChecker()
-    let customLenght: Int?
+    @Relationship(deleteRule: .cascade) var guess: Code
+    @Relationship(deleteRule: .cascade) var _attempts: [Code] = []
+    var attempts: [Code] {
+        get { _attempts.sorted { $0.timestamp < $1.timestamp } }
+        set { _attempts = newValue }
+    }
     
+    // MARK: Alphabet
+    var choices: [Letter]
+
     // MARK: Time
     var initDate: Date
-    var startTime: Date?
+    @Transient var startTime: Date?
     var endTime: Date? = nil
     var elapsedTime: TimeInterval = 0
     
     var lastAttemptDate: Date?
+    
+    // MARK: Other Data
+    var slotLetterStatusesData = Data()
+    var slotLetterStatuses: [Int: [Letter: Match]] {
+        get {
+            guard !slotLetterStatusesData.isEmpty else { return [:] }
+            return (try? JSONDecoder().decode([Int: [Letter: Match]].self, from: slotLetterStatusesData)) ?? [:]
+        }
+        set {
+            if let data = try? JSONEncoder().encode(newValue) {
+                slotLetterStatusesData = data
+            }
+        }
+    }
+    @Transient private var checker = UITextChecker()
+    var customLenght: Int?
+    var isGameOver: Bool = false
     
     // MARK: - Init
     
@@ -39,17 +62,6 @@ class CodeWord {
         self.choices = "QWERTYUIOPASDFGHJKLZXCVBNM".map { String($0) }
         self.guess = Code(kind: .guess, count: length)
         self.initDate = .now
-    }
-    
-    var isGameOver: Bool {
-        let lastAttempt = attempts.last?.matches
-        
-        if let lastAttempt {
-            if lastAttempt.allSatisfy({ $0 == .exact }) {
-                return true
-            }
-        }
-        return false
     }
     
     // MARK: - Computed Properties
@@ -66,16 +78,24 @@ class CodeWord {
     // MARK: - Logic
     
     func startTimer() {
-       if startTime == nil, !isGameOver {
+        print("🟡, start \(masterCode.letters.joined())")
+        if startTime == nil, !isGameOver {
             startTime = .now
+            elapsedTime += 0.00001
         }
     }
 
     func pauseTimer() {
+        print("🔴, pause \(masterCode.letters.joined())")
         if let startTime {
             elapsedTime += Date.now.timeIntervalSince(startTime)
         }
         startTime = nil
+    }
+    
+    func updateElapsedTime() {
+        pauseTimer()
+        startTimer()
     }
     
     /// Appends a valid word to the attempts and some more
@@ -86,19 +106,34 @@ class CodeWord {
         guard checker.isAWord(guessString) else { return }
     
         appendAttempt()
+        checkIsGameOver()
         
         appendSlotLetterStatuses(attempt: attempts.last!)
         if isGameOver { /// - Clears guess line if game is over
             guess.letters.clear()
+            pauseTimer()
         }
         lastAttemptDate = .now
     }
     
+    func checkIsGameOver() {
+        let lastAttempt = attempts.last?.matches
+        
+        if let lastAttempt {
+            if lastAttempt.allSatisfy({ $0 == .exact }) {
+                isGameOver = true
+            }
+        }
+    }
+    
     /// + Appends a guess to the attempts
     func appendAttempt() {
-        var attempt = guess
+        let attempt = guess
         attempt.kind = .attempt(guess.match(against: masterCode))
+        attempt.word = attempt.letters.joined().lowercased()
         attempts.append(attempt)
+
+        self.guess = Code(kind: .guess, count: count)
     }
     
     /// + Appends a match for each letter in each position of the Code word
@@ -125,17 +160,7 @@ class CodeWord {
         self.guess = newGame.guess
         self.attempts = newGame.attempts
         self.slotLetterStatuses = newGame.slotLetterStatuses
-    }
-}
-
-/// 🧩 Adds conformance to Identifiable, Hashable, and Equatable
-extension CodeWord: Identifiable, Hashable, Equatable {
-    /// Requirement for Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    /// Requirement for Equatable
-    static func == (lhs: CodeWord, rhs: CodeWord) -> Bool {
-        lhs.id == rhs.id
+        self.startTime = newGame.startTime
+        self.elapsedTime = newGame.elapsedTime
     }
 }

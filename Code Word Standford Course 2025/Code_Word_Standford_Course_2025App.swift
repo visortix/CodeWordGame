@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import SwiftData
 
 @main
 struct Code_Word_Standford_Course_2025App: App {
@@ -14,6 +15,7 @@ struct Code_Word_Standford_Course_2025App: App {
     var body: some Scene {
         WindowGroup {
             GameCenter()
+                .modelContainer(for: [CodeWord.self, Settings.self])
         }
     }
 }
